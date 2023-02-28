@@ -34,8 +34,10 @@ public class Elevator extends SubsystemBase {
 
     spark.restoreFactoryDefaults();
     sparkFollower.restoreFactoryDefaults();
+
     spark.setSmartCurrentLimit(30);
     sparkFollower.setSmartCurrentLimit(30);
+
     sparkFollower.follow(spark,true);
     spark.setIdleMode(IdleMode.kBrake);
     sparkFollower.setIdleMode(IdleMode.kBrake);
@@ -61,7 +63,7 @@ double lastUpdate = Timer.getFPGATimestamp();
     lastUpdate = Timer.getFPGATimestamp();
 
     double pLoopOut = (setpoint - position)/10.0;
-    if(pLoopOut>0.2) pLoopOut = 0.2;
+
 
     spark.set(pLoopOut);
     SmartDashboard.putNumber("encoderSetpoint", setpoint);
