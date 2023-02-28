@@ -24,6 +24,7 @@ public class Elevator extends SubsystemBase {
   CANSparkMax spark = new CANSparkMax(Constants.Leader_SparkMax_ID,MotorType.kBrushless);
   CANSparkMax sparkFollower = new CANSparkMax(Constants.Follower_SparkMax_ID,MotorType.kBrushless);
   RelativeEncoder encoder;
+  
 
 
   public Elevator() {
@@ -71,6 +72,6 @@ double lastUpdate = Timer.getFPGATimestamp();
     SmartDashboard.putNumber("elevatorPLoopOut", pLoopOut);
     SmartDashboard.putNumber("feedforward", feedForward);
   }
-   // Pushes new speed to intake wheel motor
+   
 
 }
