@@ -13,14 +13,17 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.commands.DriveTrain.WestCoastDrive;
 import frc.robot.commands.DriveTrain.ZOOM;
+import frc.robot.commands.DriveTrain.setMotorMode;
 // All Elevator commands and subsystems
 import frc.robot.subsystems.Elevator;
 // All Claw commands and subsystems
 import frc.robot.subsystems.PistonClaw;
+import frc.robot.subsystems.SpinningClaw;
 import frc.robot.commands.Claw.CloseClaw;
 import frc.robot.commands.Claw.OpenClaw;
 // All Winch commands and subsystems
 import frc.robot.subsystems.Winch;
+import frc.robot.subsystems.DriveTrain.Mode;
 // Autonomus
 import frc.robot.commands.Auto.Autonomous;
 
@@ -30,6 +33,7 @@ public class RobotContainer {
   private final DriveTrain m_driveTrain = new DriveTrain();
   private final Elevator m_elevator = new Elevator();
   private final PistonClaw m_claw = new PistonClaw();
+  private final SpinningClaw m_claw2 = new SpinningClaw();
   private final Winch m_winch = new Winch();
   private final Autonomous autoCommand;
 
@@ -44,11 +48,13 @@ public class RobotContainer {
       driver::getRightX,
       driver::getXButtonPressed));
 
+      m_claw2.setDefaultCommand(new RunCommand(()->m_claw2.periodic(driver.getRightY()),m_claw2));
+
       m_winch.setDefaultCommand(new RunCommand(()->m_winch.periodic(driver.getLeftTriggerAxis(),driver.getRightTriggerAxis()),m_winch));
     
       m_elevator.setDefaultCommand(new RunCommand(()->m_elevator.periodic(driver.getLeftBumper(),driver.getRightBumper()),m_elevator));
     
-    autoCommand = new Autonomous(m_driveTrain);
+    autoCommand = new Autonomous(m_driveTrain, m_claw);
     configureButtonBindings();
   }
 
@@ -57,11 +63,15 @@ public class RobotContainer {
     JoystickButton xboxControllerLeftStickButton = new JoystickButton(driver, Constants.XBOX_LEFT_STICK_BUTTON);
     JoystickButton xboxControllerAButton = new JoystickButton(driver, Constants.XBOX_A_BUTTON);
     JoystickButton xboxControllerBButton = new JoystickButton(driver, Constants.XBOX_B_BUTTON);
+    JoystickButton xboxControllerYButton = new JoystickButton(driver, Constants.XBOX_Y_BUTTON);
+    JoystickButton xboxControllerXButton = new JoystickButton(driver, Constants.XBOX_X_BUTTON);
     // Link triggers to commands
     // Link buttons to Commands
     xboxControllerLeftStickButton.whileTrue(new ZOOM(m_driveTrain));
     xboxControllerAButton.whileTrue(new CloseClaw(m_claw));
     xboxControllerBButton.whileTrue(new OpenClaw(m_claw));
+    xboxControllerXButton.whileTrue(new setMotorMode(m_driveTrain, Mode.COAST));
+    xboxControllerYButton.whileTrue(new setMotorMode(m_driveTrain, Mode.BRAKE));
   }
 
   public Command getAutonomousCommand() {

@@ -24,6 +24,7 @@ public class Elevator extends SubsystemBase {
   CANSparkMax spark = new CANSparkMax(Constants.Leader_SparkMax_ID,MotorType.kBrushless);
   CANSparkMax sparkFollower = new CANSparkMax(Constants.Follower_SparkMax_ID,MotorType.kBrushless);
   RelativeEncoder encoder;
+  
 
 
   public Elevator() {
@@ -34,8 +35,10 @@ public class Elevator extends SubsystemBase {
 
     spark.restoreFactoryDefaults();
     sparkFollower.restoreFactoryDefaults();
+
     spark.setSmartCurrentLimit(30);
     sparkFollower.setSmartCurrentLimit(30);
+
     sparkFollower.follow(spark,true);
     spark.setIdleMode(IdleMode.kBrake);
     sparkFollower.setIdleMode(IdleMode.kBrake);
@@ -50,7 +53,7 @@ double setpoint = 0;
 double lastUpdate = Timer.getFPGATimestamp();
 
   public void periodic(boolean down, boolean up){
-    double speed = 8;
+    double speed = 30;
     double out = 0;
     if(down) out-=speed;
     if(up) out+=speed;
@@ -61,7 +64,7 @@ double lastUpdate = Timer.getFPGATimestamp();
     lastUpdate = Timer.getFPGATimestamp();
 
     double pLoopOut = (setpoint - position)/10.0;
-    if(pLoopOut>0.2) pLoopOut = 0.2;
+
 
     spark.set(pLoopOut);
     SmartDashboard.putNumber("encoderSetpoint", setpoint);
@@ -69,6 +72,6 @@ double lastUpdate = Timer.getFPGATimestamp();
     SmartDashboard.putNumber("elevatorPLoopOut", pLoopOut);
     SmartDashboard.putNumber("feedforward", feedForward);
   }
-   // Pushes new speed to intake wheel motor
+   
 
 }

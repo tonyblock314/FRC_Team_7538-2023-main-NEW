@@ -32,7 +32,7 @@ double lastUpdate = Timer.getFPGATimestamp();
   public void periodic(double left, double right){
     if(left<Constants.LT_DEADBAND) left = 0;
     if(right<Constants.RT_DEADBAND) right = 0;
-    double out = (right-left) * 2;
+    double out = (right-left) * 4;
     double feedForward = out/20.0;
     double position = talon.getSelectedSensorPosition()/8192.0;
     

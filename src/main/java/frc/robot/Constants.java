@@ -42,6 +42,7 @@ public final class Constants {
     public static final int LEFT_2_CAN_ID = 2;
     public static final int RIGHT_1_CAN_ID = 3;
     public static final int RIGHT_2_CAN_ID = 4;
+    public static final int CLAW_CAN_ID = 7;
     public static final int TOP_WINCH_1_CAN_ID = 8;
 
     public static final int Leader_SparkMax_ID = 5;
@@ -55,6 +56,7 @@ public final class Constants {
     public static final double ELEVATOR_SPEED = 0.2;
 
     // Drive train config
+    public static final double AUTO_DRIVE_SPEED = 0.6;
     public static final double MAX_DRIVE_SPEED = 0.9; // MAX POWAAAAAAA!!!
     public static final double DRIVE_TRAIN_RATE_LIMIT = 0.6; // Skew limiters begone
     public static final double TURN_FACTOR = 0.6; // Turn influence decreased
@@ -95,6 +97,7 @@ public final class Constants {
     // Dead zones - Sets controller inputs to 0 in a certain range around 0 values to account for stick drift / accidental nudges
     public static final double LY_DEADBAND = 0.15; // left stick, y-axis
     public static final double RX_DEADBAND = 0.15; // right stick, x-axis
+    public static final double RY_DEADBAND = 0.15; // right stick, y-axis
     public static final double LT_DEADBAND = 0.15; // left trigger
     public static final double RT_DEADBAND = 0.15; // right trigger
 }
