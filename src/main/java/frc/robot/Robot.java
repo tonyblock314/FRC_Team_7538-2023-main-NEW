@@ -4,14 +4,22 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.cameraserver.*;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-
+  private CANSparkMax m_motor;
+  private CANSparkMax m_motor2;
+  private static final int deviceID = 1;
+  private static final int deviceID2 = 2;
   private RobotContainer m_robotContainer;
   
   /**
@@ -23,7 +31,26 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    m_motor = new CANSparkMax(deviceID, MotorType.kBrushless);
+    m_motor2 = new CANSparkMax(deviceID2, MotorType.kBrushless);
     CameraServer.startAutomaticCapture();
+
+    m_motor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
+    m_motor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
+
+    m_motor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 15);
+    m_motor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 0);
+
+
+    m_motor2.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
+    m_motor2.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
+
+    m_motor2.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 15);
+    m_motor2.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 0);
+
+
+    SmartDashboard.putNumber("Forward Soft Limit", m_motor.getSoftLimit(CANSparkMax.SoftLimitDirection.kForward));
+    SmartDashboard.putNumber("Reverse Soft Limit", m_motor.getSoftLimit(CANSparkMax.SoftLimitDirection.kReverse));
     
   }
 
@@ -74,6 +101,19 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    m_motor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
+    m_motor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
+
+    m_motor2.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
+    m_motor2.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
+
+    m_motor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 15);
+    m_motor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);
+
+    m_motor2.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 15);
+    m_motor2.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);
+    
   }
 
   /** This function is called periodically during operator control. */

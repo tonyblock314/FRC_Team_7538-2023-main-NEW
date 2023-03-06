@@ -28,8 +28,8 @@ public class AutoDrive extends PIDCommand {
       -distance,
       // Pipe output to turn robot
       output -> subsystem.setMotors(
-        Math.min(output, Constants.SCALING_FACTOR * Constants.MAX_DRIVE_SPEED), 
-        Math.min(output, Constants.SCALING_FACTOR * Constants.MAX_DRIVE_SPEED)),
+        Math.min(output, Constants.SCALING_FACTOR * Constants.AUTO_DRIVE_SPEED), 
+        Math.min(output, Constants.SCALING_FACTOR * Constants.AUTO_DRIVE_SPEED)),
       // Require the drive
       subsystem);
     getController()

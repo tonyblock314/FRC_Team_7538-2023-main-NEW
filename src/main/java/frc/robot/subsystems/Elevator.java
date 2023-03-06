@@ -53,7 +53,7 @@ double setpoint = 0;
 double lastUpdate = Timer.getFPGATimestamp();
 
   public void periodic(boolean down, boolean up){
-    double speed = 8;
+    double speed = 30;
     double out = 0;
     if(down) out-=speed;
     if(up) out+=speed;
