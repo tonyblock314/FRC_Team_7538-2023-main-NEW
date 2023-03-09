@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+
+
 // Gyro stuff we're not using ;-;
 /*import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -27,6 +29,9 @@ public class DriveTrain extends SubsystemBase {
   WPI_TalonFX leftB = new WPI_TalonFX(Constants.LEFT_2_CAN_ID);
   WPI_TalonFX rightA = new WPI_TalonFX(Constants.RIGHT_1_CAN_ID);
   WPI_TalonFX rightB = new WPI_TalonFX(Constants.RIGHT_2_CAN_ID);
+
+  
+    
 
   // Instantiates Pigeon 2.0 IMU
 

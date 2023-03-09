@@ -48,6 +48,7 @@ public final class Constants {
     public static final int Leader_SparkMax_ID = 5;
     public static final int Follower_SparkMax_ID = 6;
     // public static final int PIGEON_CAN_ID = 9; ;-;
+
     
     // Winch speed
     public static final double MAX_INANDOUT_SPEED = 0.6;
@@ -80,6 +81,9 @@ public final class Constants {
     public static final double kTurnDTol = 0;
     
     public static final double RAW_SENSOR_UNITS_TO_WINCH_METERS = 0;
+
+    public static final double TILT_THRESHOLD_FORWARDS = 3;
+    public static final double TILT_THRESHOLD_BACKWARDS = -3;
 
     // :(
     // public static final double TRACK_WIDTH_METERS = 0.5; // NOT ACTUALLY, NEED TO FIND OUT
