@@ -6,7 +6,6 @@ package frc.robot.commands.Auto;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
-
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.DriveTrain.setMotorMode;
@@ -72,15 +71,20 @@ public class Autonomous extends SequentialCommandGroup {
     //Auto Balancing Autonomous (please work)
     addCommands(
       new setMotorMode(driveTrain, Mode.BRAKE),
-      new Wait(driveTrain, 2000),
+      new Wait(driveTrain, 2000));
+
+
+
+    addCommands(
       new AutoDrive(driveTrain, 0.305 * -10.4),
       new AutoDrive(driveTrain, 0.305 * 2));
-      if (pitchdegrees <= Constants.TILT_THRESHOLD_BACKWARDS) {
-        addCommands(new AutoDrive(driveTrain, 0.1));
-      } else if(pitchdegrees >= Constants.TILT_THRESHOLD_FORWARDS) {
-        addCommands(new AutoDrive(driveTrain, -0.1));
-      } else {
-        addCommands(new Wait(driveTrain, 50));
-      }
+
+    if (pitchdegrees <= Constants.TILT_THRESHOLD_BACKWARDS) {
+      addCommands(new AutoDrive(driveTrain, 0.1));
+    } else if(pitchdegrees >= Constants.TILT_THRESHOLD_FORWARDS) {
+      addCommands(new AutoDrive(driveTrain, -0.1));
+    } else {
+      addCommands(new Wait(driveTrain, 50));
+    }
   }
 }
