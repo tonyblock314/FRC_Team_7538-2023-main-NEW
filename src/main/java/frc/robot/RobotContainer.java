@@ -39,6 +39,7 @@ public class RobotContainer {
 
   // Instantiate driver controller
   public static XboxController driver = new XboxController(Constants.DRIVER_XBOX_PORT);
+  public static XboxController intake = new XboxController(Constants.INTAKE_XBOX_PORT);
 
   // The container for the robot. Contains subsystems, OI devices, and commands.
   public RobotContainer() {
@@ -48,9 +49,9 @@ public class RobotContainer {
       driver::getRightX,
       driver::getXButtonPressed));
 
-      m_claw2.setDefaultCommand(new RunCommand(()->m_claw2.periodic(driver.getRightY()),m_claw2));
+      m_claw2.setDefaultCommand(new RunCommand(()->m_claw2.periodic(intake.getRightY()),m_claw2));
 
-      m_winch.setDefaultCommand(new RunCommand(()->m_winch.periodic(driver.getLeftTriggerAxis(),driver.getRightTriggerAxis()),m_winch));
+      m_winch.setDefaultCommand(new RunCommand(()->m_winch.periodic(intake.getLeftTriggerAxis(),intake.getRightTriggerAxis()),m_winch));
     
       m_elevator.setDefaultCommand(new RunCommand(()->m_elevator.periodic(driver.getLeftBumper(),driver.getRightBumper()),m_elevator));
     
