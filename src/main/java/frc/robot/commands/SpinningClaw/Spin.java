@@ -12,7 +12,6 @@ import frc.robot.subsystems.SpinningClaw;
 
 public class Spin extends CommandBase {
   private SpinningClaw m_subsystem;
-  private double speed;
   private DoubleSupplier leftdepressed, rightdepressed;
   
   /** Creates a new Spin. */
