@@ -10,7 +10,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 
 /** An example command that uses an example subsystem. */
-public class AutoDrive extends PIDCommand {
+public class AutoDriveSlow extends PIDCommand {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final DriveTrain m_subsystem;
 
@@ -19,7 +19,7 @@ public class AutoDrive extends PIDCommand {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public AutoDrive(DriveTrain subsystem, double distance) {
+  public AutoDriveSlow(DriveTrain subsystem, double distance) {
     super(
       new PIDController(Constants.kDriveP, Constants.kDriveI, Constants.kDriveD),
       // Close loop on heading
@@ -28,8 +28,8 @@ public class AutoDrive extends PIDCommand {
       -distance,
       // Pipe output to turn robot
       output -> subsystem.setMotors(
-        Math.min(Math.abs(output), Constants.AUTO_DRIVE_SPEED) * output / Math.abs(output), 
-        Math.min(Math.abs(output), Constants.AUTO_DRIVE_SPEED) * output / Math.abs(output)),
+        Math.min(Math.abs(output), Constants.AUTO_DRIVE_SPEED_SLOW) * output / Math.abs(output), 
+        Math.min(Math.abs(output), Constants.AUTO_DRIVE_SPEED_SLOW) * output / Math.abs(output)),
       // Require the drive
       subsystem);
     getController()

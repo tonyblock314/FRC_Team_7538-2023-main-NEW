@@ -24,8 +24,8 @@ public class Elevator extends SubsystemBase {
   CANSparkMax spark = new CANSparkMax(Constants.Leader_SparkMax_ID,MotorType.kBrushless);
   CANSparkMax sparkFollower = new CANSparkMax(Constants.Follower_SparkMax_ID,MotorType.kBrushless);
   RelativeEncoder encoder;
-  
-
+  double setpoint = 0;
+  double lastUpdate = Timer.getFPGATimestamp();
 
   public Elevator() {
     //talon.configFactoryDefault();
@@ -35,22 +35,16 @@ public class Elevator extends SubsystemBase {
 
     spark.restoreFactoryDefaults();
     sparkFollower.restoreFactoryDefaults();
-
     spark.setSmartCurrentLimit(30);
     sparkFollower.setSmartCurrentLimit(30);
-
     sparkFollower.follow(spark,true);
     spark.setIdleMode(IdleMode.kBrake);
     sparkFollower.setIdleMode(IdleMode.kBrake);
     encoder = spark.getEncoder();
     encoder.setPosition(0);
-
-    
    // spark.sensor
     
   }
-double setpoint = 0;
-double lastUpdate = Timer.getFPGATimestamp();
 
   public void periodic(boolean down, boolean up){
     double speed = 30;
@@ -61,6 +55,13 @@ double lastUpdate = Timer.getFPGATimestamp();
     double position = encoder.getPosition();
     
     setpoint+= out*(Timer.getFPGATimestamp() - lastUpdate);
+
+    if (setpoint < 0) {
+      setpoint = 0;
+    } else if (setpoint > 43) {
+      setpoint = 43;
+    }
+
     lastUpdate = Timer.getFPGATimestamp();
 
     double pLoopOut = (setpoint - position)/10.0;
@@ -72,6 +73,10 @@ double lastUpdate = Timer.getFPGATimestamp();
     SmartDashboard.putNumber("elevatorPLoopOut", pLoopOut);
     SmartDashboard.putNumber("feedforward", feedForward);
   }
-   
+
+
+  public void setSpark(double speed) {
+    spark.set(speed);
+  }
 
 }

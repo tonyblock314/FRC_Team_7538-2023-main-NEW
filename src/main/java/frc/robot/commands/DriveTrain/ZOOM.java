@@ -18,7 +18,7 @@ public class ZOOM extends CommandBase {
 
   @Override
   public void execute() {
-    m_subsystem.setMotors(1, 1);
+    m_subsystem.setMotors(1.2, 1.2);
   }
 
   @Override

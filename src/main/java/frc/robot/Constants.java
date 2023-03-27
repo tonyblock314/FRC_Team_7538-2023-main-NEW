@@ -58,11 +58,13 @@ public final class Constants {
     public static final double ELEVATOR_SPEED = 0.2;
 
     // Drive train config
-    public static final double AUTO_DRIVE_SPEED = 0.6;
-    public static final double MAX_DRIVE_SPEED = 0.9; // MAX POWAAAAAAA!!!
+    public static final double AUTO_DRIVE_SPEED = 0.4;
+    public static final double AUTO_DRIVE_SPEED_SLOW = 0.25;
+    public static final double MAX_DRIVE_SPEED = 1; // MAX POWAAAAAAA!!!
     public static final double DRIVE_TRAIN_RATE_LIMIT = 0.6; // Skew limiters begone
     public static final double TURN_FACTOR = 0.6; // Turn influence decreased
     public static final double SCALING_FACTOR = MAX_DRIVE_SPEED / (1.5 + TURN_FACTOR);
+    public static final double SCALING_FACTOR_CLAW = 0.75;
 
     public static final double RAW_SENSOR_UNITS_TO_DRIVE_METERS = 1.948201497395833e-5; // Roughly 50000 sensor units per meter
     // 2048 raw units per motor rotation
@@ -100,9 +102,9 @@ public final class Constants {
     // public static final double kPDriveVel = 0; // NEEDS TO BE CONFIGURED TO ROBOT 
 
     // Dead zones - Sets controller inputs to 0 in a certain range around 0 values to account for stick drift / accidental nudges
-    public static final double LY_DEADBAND = 0.15; // left stick, y-axis
-    public static final double RX_DEADBAND = 0.15; // right stick, x-axis
-    public static final double RY_DEADBAND = 0.15; // right stick, y-axis
-    public static final double LT_DEADBAND = 0.15; // left trigger
-    public static final double RT_DEADBAND = 0.15; // right trigger
+    public static final double LY_DEADBAND = 0.10; // left stick, y-axis
+    public static final double RX_DEADBAND = 0.10; // right stick, x-axis
+    public static final double RY_DEADBAND = 0.10; // right stick, y-axis
+    public static final double LT_DEADBAND = 0.10; // left trigger
+    public static final double RT_DEADBAND = 0.10; // right trigger
 }

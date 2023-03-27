@@ -17,8 +17,10 @@ import frc.robot.commands.DriveTrain.setMotorMode;
 // All Elevator commands and subsystems
 import frc.robot.subsystems.Elevator;
 // All Claw commands and subsystems
-import frc.robot.subsystems.PistonClaw;
+import frc.robot.commands.SpinningClaw.Spin;
+import frc.robot.commands.Winch.InAndOut;
 import frc.robot.subsystems.SpinningClaw;
+import frc.robot.subsystems.PistonClaw;
 import frc.robot.commands.Claw.CloseClaw;
 import frc.robot.commands.Claw.OpenClaw;
 // All Winch commands and subsystems
@@ -39,23 +41,38 @@ public class RobotContainer {
 
   // Instantiate driver controller
   public static XboxController driver = new XboxController(Constants.DRIVER_XBOX_PORT);
-  public static XboxController intake = new XboxController(Constants.INTAKE_XBOX_PORT);
+  public static XboxController driver1 = new XboxController(Constants.INTAKE_XBOX_PORT);
 
   // The container for the robot. Contains subsystems, OI devices, and commands.
   public RobotContainer() {
+    m_claw2.setDefaultCommand(new Spin(
+      m_claw2,
+      driver::getRightTriggerAxis,
+      driver::getLeftTriggerAxis
+    ));
     m_driveTrain.setDefaultCommand(new WestCoastDrive(
       m_driveTrain,
       driver::getLeftY,
       driver::getRightX,
-      driver::getXButtonPressed));
-
-      m_claw2.setDefaultCommand(new RunCommand(()->m_claw2.periodic(intake.getRightY()),m_claw2));
-
-      m_winch.setDefaultCommand(new RunCommand(()->m_winch.periodic(intake.getLeftTriggerAxis(),intake.getRightTriggerAxis()),m_winch));
-    
-      m_elevator.setDefaultCommand(new RunCommand(()->m_elevator.periodic(driver.getLeftBumper(),driver.getRightBumper()),m_elevator));
-    
-    autoCommand = new Autonomous(m_driveTrain, m_claw);
+      driver::getXButtonPressed
+    ));
+    m_winch.setDefaultCommand(new InAndOut(
+      m_winch, 
+      driver1::getLeftTriggerAxis, 
+      driver1::getRightTriggerAxis
+    ));
+    /*m_winch.setDefaultCommand(new RunCommand(
+      ()->m_winch.periodic(
+      driver.getLeftTriggerAxis(), 
+      driver.getRightTriggerAxis()), 
+      m_winch
+    ));*/
+    m_elevator.setDefaultCommand(new RunCommand(
+      ()->m_elevator.periodic(driver1.getLeftBumper(), 
+      driver1.getRightBumper()), 
+      m_elevator
+    ));
+    autoCommand = new Autonomous(m_driveTrain, m_claw2, m_winch);
     configureButtonBindings();
   }
 

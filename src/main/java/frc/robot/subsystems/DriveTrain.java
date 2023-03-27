@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 
 
+
+
 // Gyro stuff we're not using ;-;
 /*import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -32,13 +34,12 @@ public class DriveTrain extends SubsystemBase {
 
   
     
-
-  // Instantiates Pigeon 2.0 IMU
-
-  /*WPI_Pigeon2 pigeonGyro = new WPI_Pigeon2(Constants.PIGEON_CAN_ID);
+  /* 
+  AHRS navx = new AHRS(SPI.Port.kMXP);
   DifferentialDriveOdometry m_odometry;
   public static DifferentialDriveKinematics kDriveKinematics =
-        new DifferentialDriveKinematics(Constants.TRACK_WIDTH_METERS);*/
+        new DifferentialDriveKinematics(Constants.TRACK_WIDTH_METERS);
+  */
 
   // Create chooser for accel limiting
   //SendableChooser<Boolean> m_limit_chooser = new SendableChooser<>();
@@ -171,18 +172,14 @@ public class DriveTrain extends SubsystemBase {
   public void updateDashboard() {
     SmartDashboard.putNumber("leftEncoder (meters): ", leftA.getSelectedSensorPosition() * Constants.RAW_SENSOR_UNITS_TO_DRIVE_METERS);
     SmartDashboard.putNumber("rightEncoder (meters): ", rightA.getSelectedSensorPosition() * Constants.RAW_SENSOR_UNITS_TO_DRIVE_METERS);
-    SmartDashboard.putNumber("Talon ID1 Temperature: ", leftA.getTemperature());
-    SmartDashboard.putNumber("Talon ID2 Temperature: ", leftB.getTemperature());
-    SmartDashboard.putNumber("Talon ID3 Temperature: ", rightA.getTemperature());
-    SmartDashboard.putNumber("Talon ID4 Temperature: ", rightB.getTemperature());
   }
 
   /*
   *   Handles gyro
   */
-
-  /*public void resetHeading() {
-    pigeonGyro.reset();
+  /* 
+  public void resetHeading() {
+    //.reset();
   }
 
   public Rotation2d getHeading() {
@@ -210,12 +207,12 @@ public class DriveTrain extends SubsystemBase {
     return new DifferentialDriveWheelSpeeds(
       leftA.getSelectedSensorVelocity() * Constants.RAW_SENSOR_UNITS_TO_METERS, 
       rightA.getSelectedSensorVelocity() * Constants.RAW_SENSOR_UNITS_TO_METERS);
-  }*/
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     /*m_odometry.update(
-      getHeading(), getEncoderPosition(leftA), getEncoderPosition(rightA));*/
-  }
+      getHeading(), getEncoderPosition(leftA), getEncoderPosition(rightA));
+  }*/
 }
